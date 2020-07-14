@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Vue</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <p>{{msg}}</p>
+        <p>{{inputValue}}</p>
+      </div>
+      <p v-text="name"></p>
+      <input v-model="inputValue" />
+    </div>
+    <script src="./src/watcher.js"></script>
+    <script src="./src/dep.js"></script>
+    <script src="./src/compiler.js"></script>
+    <script src="./src/observer.js"></script>
+    <script src="./src/minivue.js"></script>
+    <script>
+      const miniVue = new MiniVue({
+        el: "#app",
+        data: {
+          msg: "Hello world",
+          name: "Mini Vue",
+          inputValue: "abc",
+          obj: {
+            a: 3,
+          },
+        },
+      });
+      console.log(miniVue);
+    </script>
+  </body>
+</html>
