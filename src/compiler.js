@@ -32,9 +32,18 @@ class Compiler {
   }
   modelUpdate(node, key) {
     node.value = this.vm[key];
+    new Watcher(this.vm, key, (newValue) => {
+      node.value = newValue;
+    });
+    node.addEventListener("input", (e) => {
+      this.vm[key] = node.value;
+    });
   }
   textUpdate(node, key) {
     node.textContent = this.vm[key];
+    new Watcher(this.vm, key, (newValue) => {
+      node.textContent = newValue;
+    });
   }
   compilerText(node) {
     let reg = /\{\{(.+?)\}\}/;
@@ -43,6 +52,9 @@ class Compiler {
       console.log(key);
 
       node.textContent = node.textContent.replace(reg, this.vm[key]);
+      new Watcher(this.vm, key, (newValue) => {
+        node.textContent = newValue;
+      });
     }
   }
   isTextNode(node) {

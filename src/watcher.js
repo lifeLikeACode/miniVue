@@ -4,11 +4,17 @@ class Watcher {
     this.key = key;
     this.cb = cb;
     Dep.target = this;
-    vm[key];
+    this.oldValue = this.vm[key];
     Dep.target = null;
     this.update(vm, key, cb);
   }
-  update(vm, key, cb) {}
+  update() {
+    const newValue = this.vm[this.key];
+    if (newValue === this.oldValue) {
+      return;
+    }
+    this.cb && this.cb(newValue);
+  }
 }
 
 // new Watcher(vm,key, cb)

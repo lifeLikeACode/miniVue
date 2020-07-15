@@ -16,14 +16,14 @@ class Observer {
       configurable: true,
       enumerable: true,
       get() {
-        dep.push(Dep.target);
+        Dep.target && dep.addSub(Dep.target);
         return value;
       },
       set(newVal) {
         if (newVal === value) {
           return;
         }
-        obj[key] = newVal;
+        value = newVal;
         dep.notify();
       },
     });
